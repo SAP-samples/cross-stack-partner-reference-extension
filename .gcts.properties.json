@@ -1,0 +1,20 @@
+{
+  "name": "sap-samples-cross-stack-partner-reference-extension",
+  "version": "1.0.0",
+  "description": "ExternalRepo-cross-stack-partner-reference-extension",
+  "repositoryLayout": {
+    "formatVersion": 5,
+    "format": "json",
+    "objectStorage": "plain",
+    "metaInformation": ".gctsmetadata/",
+    "tableContent": "true",
+    "readableSource": "false",
+    "keepClient": "false"
+  },
+  "configurations": [
+    {
+      "key": "CLIENT_VCS_LOGLVL",
+      "value": "info"
+    }
+  ]
+}
