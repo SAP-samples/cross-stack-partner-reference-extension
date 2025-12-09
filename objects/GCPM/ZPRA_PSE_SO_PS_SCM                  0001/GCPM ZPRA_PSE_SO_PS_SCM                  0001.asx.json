@@ -1,0 +1,50 @@
+[
+ {
+  "table":"/IWBEP/I_CP_MOD",
+  "data":
+  [
+   {
+    "PROXY_MODEL_ID":"ZPRA_PSE_SO_PS_SCM",
+    "VERSION":1,
+    "MPC_NAME":"ZPRA_PSE_SO_PS_SCM",
+    "DESCRIPTION":"Service consumption Model for Poetry Slam Event Application",
+    "CREATED_BY":"SAP_CUSTOMER",
+    "CREATED_AT":"+020251208095846",
+    "CHANGED_BY":"SAP_CUSTOMER",
+    "CHANGED_AT":"+020251208095846",
+    "ABAP_LANGUAGE_VERSION":"5",
+    "KIND":"OData_V4"
+   }
+  ]
+ },
+ {
+  "table":"TADIR",
+  "data":
+  [
+   {
+    "PGMID":"R3TR",
+    "OBJECT":"GCPM",
+    "OBJ_NAME":"ZPRA_PSE_SO_PS_SCM                  0001",
+    "KORRNUM":"",
+    "SRCSYSTEM":"...",
+    "AUTHOR":"SAP_CUSTOMER",
+    "SRCDEP":"",
+    "DEVCLASS":"ZPRA_PSE_SALES_ORDER",
+    "GENFLAG":"",
+    "EDTFLAG":"",
+    "CPROJECT":" L",
+    "MASTERLANG":"E",
+    "VERSID":"",
+    "PAKNOCHECK":"",
+    "OBJSTABLTY":"",
+    "COMPONENT":"",
+    "CRELEASE":"",
+    "DELFLAG":"",
+    "TRANSLTTXT":"",
+    "CREATED_ON":"2025-12-08",
+    "CHECK_DATE":"2025-12-08",
+    "CHECK_CFG":""
+   }
+  ]
+ }
+]

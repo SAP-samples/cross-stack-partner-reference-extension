@@ -1,0 +1,64 @@
+[
+ {
+  "table":"DDDDLSRC",
+  "data":
+  [
+   {
+    "DDLNAME":"ZPRA_PSE_C_SOMANAGE_EXT",
+    "AS4LOCAL":"N",
+    "AS4USER":"SAP_CUSTOMER",
+    "AS4DATE":"0000-00-00",
+    "AS4TIME":"00:00:00",
+    "SOURCE":"extend view C_SalesOrderManage with ZPRA_PSE_C_SOMANAGE_EXT\r\n{\r\n  @UI: {\r\n  identification:[{ importance: #HIGH, type: #FOR_ACTION, dataAction: 'zzpra_pse_assign_ps', label: 'Assign Poetry Slam' }]}\r\n  @UI.facet: [\r\n      {\r\n        id:         'PoetrySlamDatas',\r\n        label:      'Poetry Slam Data',\r\n        purpose:    #STANDARD,\r\n        type:       #FIELDGROUP_REFERENCE,\r\n        parentId:   'BasicData',\r\n        importance: #HIGH,\r\n        position:   30,\r\n        targetQualifier: 'PoetrySlamDatas'\r\n      }\r\n    ]\r\n\r\n\r\n\r\n  @UI.fieldGroup: [ { qualifier: 'PoetrySlamDatas',position: 10, hidden:false,  importance: #HIGH ,type: #WITH_URL, url:'zzpra_pse_ps_url_sdh' } ]\r\n\r\n\r\n  SalesOrder.zzpra_pse_ps_id_sdh    as zzpra_pse_ps_id_sdh,\r\n\r\n  @UI.fieldGroup: [ { qualifier: 'PoetrySlamDatas',\r\n                      position: 20,\r\n                      hidden:false,\r\n                      importance: #HIGH } ]\r\n\r\n\r\n\r\n  SalesOrder.zzpra_pse_ps_title_sdh as zzpra_pse_ps_title_sdh,\r\n\r\n  SalesOrder.zzpra_pse_ps_url_sdh as zzpra_pse_ps_url_sdh\r\n    \r\n}\r\n/*+[internal] {\n\"BASEINFO\":\n{\n\"FROM\":\n[\n\"R_SALESORDERTP\"\n],\n\"ASSOCIATED\":\n[],\n\"BASE\":\n[],\n\"ANNO_REF\":\n[],\n\"SCALAR_FUNCTION\":\n[],\n\"VERSION\":0,\n\"ANNOREF_EVALUATION_ERROR\":\"\"\n}\n}*/",
+    "PARENTNAME":"C_SALESORDERMANAGE",
+    "ACTFLAG":"",
+    "CHGFLAG":"",
+    "SOURCE_TYPE":"X",
+    "SOURCE_ORIGIN":"0",
+    "ABAP_LANGUAGE_VERSION":"5"
+   }
+  ]
+ },
+ {
+  "table":"DDDDLSRCT",
+  "data":
+  [
+   {
+    "DDLNAME":"ZPRA_PSE_C_SOMANAGE_EXT",
+    "DDLANGUAGE":"E",
+    "AS4LOCAL":"N",
+    "DDTEXT":"Sales Order Projection View Extension"
+   }
+  ]
+ },
+ {
+  "table":"TADIR",
+  "data":
+  [
+   {
+    "PGMID":"R3TR",
+    "OBJECT":"DDLS",
+    "OBJ_NAME":"ZPRA_PSE_C_SOMANAGE_EXT",
+    "KORRNUM":"",
+    "SRCSYSTEM":"...",
+    "AUTHOR":"SAP_CUSTOMER",
+    "SRCDEP":"",
+    "DEVCLASS":"ZPRA_PSE_SALES_ORDER",
+    "GENFLAG":"",
+    "EDTFLAG":"",
+    "CPROJECT":" L",
+    "MASTERLANG":"E",
+    "VERSID":"",
+    "PAKNOCHECK":"",
+    "OBJSTABLTY":"",
+    "COMPONENT":"",
+    "CRELEASE":"",
+    "DELFLAG":"",
+    "TRANSLTTXT":"",
+    "CREATED_ON":"2025-12-06",
+    "CHECK_DATE":"2025-12-06",
+    "CHECK_CFG":""
+   }
+  ]
+ }
+]

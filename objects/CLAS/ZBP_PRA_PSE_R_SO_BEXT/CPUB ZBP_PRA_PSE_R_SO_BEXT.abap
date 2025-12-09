@@ -1,0 +1,1 @@
+CLASS zbp_pra_pse_r_so_bext DEFINITION PUBLIC ABSTRACT FINAL FOR BEHAVIOR OF r_salesordertp.
