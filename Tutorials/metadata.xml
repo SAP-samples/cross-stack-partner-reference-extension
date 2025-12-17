@@ -1,0 +1,500 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Communication.xml">
+        <edmx:Include Alias="Communication" Namespace="com.sap.vocabularies.Communication.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Measures.V1.xml">
+        <edmx:Include Alias="Measures" Namespace="Org.OData.Measures.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Validation.V1.xml">
+        <edmx:Include Alias="Validation" Namespace="Org.OData.Validation.V1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="PoetrySlamManagerAPIService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotation Term="Core.Links">
+                <Collection>
+                    <Record>
+                        <PropertyValue Property="rel" String="author"/>
+                        <PropertyValue Property="href" String="https://cap.cloud.sap"/>
+                    </Record>
+                </Collection>
+            </Annotation>
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="PoetrySlams" EntityType="PoetrySlamManagerAPIService.PoetrySlams">
+                    <NavigationPropertyBinding Path="visitorsFeeCurrency" Target="Currencies"/>
+                    <NavigationPropertyBinding Path="status" Target="PoetrySlamStatusCodes"/>
+                    <NavigationPropertyBinding Path="visits" Target="Visits"/>
+                </EntitySet>
+                <EntitySet Name="Visitors" EntityType="PoetrySlamManagerAPIService.Visitors">
+                    <NavigationPropertyBinding Path="visits" Target="Visits"/>
+                </EntitySet>
+                <EntitySet Name="Visits" EntityType="PoetrySlamManagerAPIService.Visits">
+                    <NavigationPropertyBinding Path="parent" Target="PoetrySlams"/>
+                    <NavigationPropertyBinding Path="visitor" Target="Visitors"/>
+                    <NavigationPropertyBinding Path="status" Target="VisitStatusCodes"/>
+                </EntitySet>
+                <EntitySet Name="Currencies" EntityType="PoetrySlamManagerAPIService.Currencies">
+                    <NavigationPropertyBinding Path="texts" Target="Currencies_texts"/>
+                    <NavigationPropertyBinding Path="localized" Target="Currencies_texts"/>
+                </EntitySet>
+                <EntitySet Name="PoetrySlamStatusCodes" EntityType="PoetrySlamManagerAPIService.PoetrySlamStatusCodes">
+                    <NavigationPropertyBinding Path="texts" Target="PoetrySlamStatusCodes_texts"/>
+                    <NavigationPropertyBinding Path="localized" Target="PoetrySlamStatusCodes_texts"/>
+                </EntitySet>
+                <EntitySet Name="VisitStatusCodes" EntityType="PoetrySlamManagerAPIService.VisitStatusCodes">
+                    <NavigationPropertyBinding Path="texts" Target="VisitStatusCodes_texts"/>
+                    <NavigationPropertyBinding Path="localized" Target="VisitStatusCodes_texts"/>
+                </EntitySet>
+                <EntitySet Name="Currencies_texts" EntityType="PoetrySlamManagerAPIService.Currencies_texts"/>
+                <EntitySet Name="PoetrySlamStatusCodes_texts" EntityType="PoetrySlamManagerAPIService.PoetrySlamStatusCodes_texts"/>
+                <EntitySet Name="VisitStatusCodes_texts" EntityType="PoetrySlamManagerAPIService.VisitStatusCodes_texts"/>
+            </EntityContainer>
+            <EntityType Name="PoetrySlams">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="number" Type="Edm.String" MaxLength="255"/>
+                <Property Name="title" Type="Edm.String" MaxLength="255"/>
+                <Property Name="description" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="dateTime" Type="Edm.DateTimeOffset"/>
+                <Property Name="visitorsFeeAmount" Type="Edm.Decimal" Precision="6" Scale="2"/>
+                <NavigationProperty Name="visitorsFeeCurrency" Type="PoetrySlamManagerAPIService.Currencies">
+                    <ReferentialConstraint Property="visitorsFeeCurrency_code" ReferencedProperty="code"/>
+                </NavigationProperty>
+                <Property Name="visitorsFeeCurrency_code" Type="Edm.String" MaxLength="3"/>
+                <NavigationProperty Name="status" Type="PoetrySlamManagerAPIService.PoetrySlamStatusCodes">
+                    <ReferentialConstraint Property="status_code" ReferencedProperty="code"/>
+                </NavigationProperty>
+                <Property Name="status_code" Type="Edm.Int32" DefaultValue="1"/>
+                <NavigationProperty Name="visits" Type="Collection(PoetrySlamManagerAPIService.Visits)" Partner="parent">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <Property Name="salesOrderID" Type="Edm.String"/>
+            </EntityType>
+            <EntityType Name="Visitors">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="name" Type="Edm.String"/>
+                <Property Name="email" Type="Edm.String"/>
+                <NavigationProperty Name="visits" Type="Collection(PoetrySlamManagerAPIService.Visits)" Partner="visitor"/>
+            </EntityType>
+            <EntityType Name="Visits">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <NavigationProperty Name="parent" Type="PoetrySlamManagerAPIService.PoetrySlams" Partner="visits">
+                    <ReferentialConstraint Property="parent_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="parent_ID" Type="Edm.Guid"/>
+                <NavigationProperty Name="visitor" Type="PoetrySlamManagerAPIService.Visitors" Partner="visits">
+                    <ReferentialConstraint Property="visitor_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="visitor_ID" Type="Edm.Guid"/>
+                <Property Name="artistIndicator" Type="Edm.Boolean" DefaultValue="false"/>
+                <NavigationProperty Name="status" Type="PoetrySlamManagerAPIService.VisitStatusCodes">
+                    <ReferentialConstraint Property="status_code" ReferencedProperty="code"/>
+                </NavigationProperty>
+                <Property Name="status_code" Type="Edm.Int32"/>
+            </EntityType>
+            <EntityType Name="Currencies">
+                <Key>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="code" Type="Edm.String" MaxLength="3" Nullable="false"/>
+                <Property Name="symbol" Type="Edm.String" MaxLength="5"/>
+                <Property Name="minorUnit" Type="Edm.Int16"/>
+                <NavigationProperty Name="texts" Type="Collection(PoetrySlamManagerAPIService.Currencies_texts)">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <NavigationProperty Name="localized" Type="PoetrySlamManagerAPIService.Currencies_texts">
+                    <ReferentialConstraint Property="code" ReferencedProperty="code"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="PoetrySlamStatusCodes">
+                <Key>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="code" Type="Edm.Int32" Nullable="false" DefaultValue="1"/>
+                <NavigationProperty Name="texts" Type="Collection(PoetrySlamManagerAPIService.PoetrySlamStatusCodes_texts)">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <NavigationProperty Name="localized" Type="PoetrySlamManagerAPIService.PoetrySlamStatusCodes_texts">
+                    <ReferentialConstraint Property="code" ReferencedProperty="code"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="VisitStatusCodes">
+                <Key>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="code" Type="Edm.Int32" Nullable="false"/>
+                <NavigationProperty Name="texts" Type="Collection(PoetrySlamManagerAPIService.VisitStatusCodes_texts)">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <NavigationProperty Name="localized" Type="PoetrySlamManagerAPIService.VisitStatusCodes_texts">
+                    <ReferentialConstraint Property="code" ReferencedProperty="code"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="Currencies_texts">
+                <Key>
+                    <PropertyRef Name="locale"/>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false"/>
+                <Property Name="name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="code" Type="Edm.String" MaxLength="3" Nullable="false"/>
+            </EntityType>
+            <EntityType Name="PoetrySlamStatusCodes_texts">
+                <Key>
+                    <PropertyRef Name="locale"/>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false"/>
+                <Property Name="name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="code" Type="Edm.Int32" Nullable="false" DefaultValue="1"/>
+            </EntityType>
+            <EntityType Name="VisitStatusCodes_texts">
+                <Key>
+                    <PropertyRef Name="locale"/>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false"/>
+                <Property Name="name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="code" Type="Edm.Int32" Nullable="false"/>
+            </EntityType>
+            <Annotations Target="PoetrySlamManagerAPIService.PoetrySlams/ID">
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+                <Annotation Term="Common.Label" String="UUID"/>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.PoetrySlams/number">
+                <Annotation Term="Common.Label" String="Number"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.PoetrySlams/title">
+                <Annotation Term="Common.Label" String="Title"/>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.PoetrySlams/description">
+                <Annotation Term="Common.Label" String="Description"/>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.PoetrySlams/dateTime">
+                <Annotation Term="Common.Label" String="Event Date"/>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.PoetrySlams/visitorsFeeAmount">
+                <Annotation Term="Measures.ISOCurrency" Path="visitorsFeeCurrency_code"/>
+                <Annotation Term="Common.Label" String="Price"/>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.PoetrySlams/visitorsFeeCurrency">
+                <Annotation Term="Common.Label" String="Currency"/>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.PoetrySlams/visitorsFeeCurrency_code">
+                <Annotation Term="Common.Label" String="Currency"/>
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="Label" String="Currency"/>
+                        <PropertyValue Property="CollectionPath" String="Currencies"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="visitorsFeeCurrency_code"/>
+                                    <PropertyValue Property="ValueListProperty" String="code"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="name"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.PoetrySlams/status">
+                <Annotation Term="Common.Label" String="Status"/>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.PoetrySlams/status_code">
+                <Annotation Term="Common.Label" String="Status"/>
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="Label" String="Status"/>
+                        <PropertyValue Property="CollectionPath" String="PoetrySlamStatusCodes"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="status_code"/>
+                                    <PropertyValue Property="ValueListProperty" String="code"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="name"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.PoetrySlams/visits">
+                <Annotation Term="Common.Label" String="Booking"/>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.PoetrySlams/salesOrderID">
+                <Annotation Term="Common.Label" String="Advertising Sales Order"/>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.Visitors/ID">
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+                <Annotation Term="Common.Label" String="UUID"/>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.Visitors/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.Visitors/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.Visitors/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.Visitors/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.Visitors/name">
+                <Annotation Term="Common.Label" String="Name"/>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.Visitors/email">
+                <Annotation Term="Communication.IsEmailAddress" Bool="true"/>
+                <Annotation Term="Common.Label" String="Email"/>
+                <Annotation Term="Validation.Pattern" String="^[\w\-\.]+@([\w-]+\.)+[\w-]{2,4}$"/>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.Visitors/visits">
+                <Annotation Term="Common.Label" String="Booking"/>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.Visits/ID">
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+                <Annotation Term="Common.Label" String="UUID"/>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.Visits/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.Visits/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.Visits/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.Visits/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.Visits/parent">
+                <Annotation Term="Common.Label" String="Poetry Slam UUID"/>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.Visits/parent_ID">
+                <Annotation Term="Common.Label" String="Poetry Slam UUID"/>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.Visits/visitor">
+                <Annotation Term="Common.Label" String="Visitor UUID"/>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.Visits/visitor_ID">
+                <Annotation Term="Common.Label" String="Visitor UUID"/>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.Visits/artistIndicator">
+                <Annotation Term="Common.Label" String="Artist"/>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.Visits/status">
+                <Annotation Term="Common.Label" String="Status"/>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.Visits/status_code">
+                <Annotation Term="Common.Label" String="Status"/>
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="Label" String="Status"/>
+                        <PropertyValue Property="CollectionPath" String="VisitStatusCodes"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="status_code"/>
+                                    <PropertyValue Property="ValueListProperty" String="code"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="name"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.Currencies">
+                <Annotation Term="UI.Identification">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="name"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.Currencies/name">
+                <Annotation Term="Common.Label" String="Name"/>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.Currencies/descr">
+                <Annotation Term="Common.Label" String="Description"/>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.Currencies/code">
+                <Annotation Term="Common.Text" Path="name"/>
+                <Annotation Term="Common.Label" String="Currency Code"/>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.Currencies/symbol">
+                <Annotation Term="Common.Label" String="Currency Symbol"/>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.Currencies/minorUnit">
+                <Annotation Term="Common.Label" String="Currency Minor Unit Fractions"/>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.PoetrySlamStatusCodes">
+                <Annotation Term="UI.Identification">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="name"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.PoetrySlamStatusCodes/name">
+                <Annotation Term="Common.Label" String="Name"/>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.PoetrySlamStatusCodes/descr">
+                <Annotation Term="Common.Label" String="Description"/>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.PoetrySlamStatusCodes/code">
+                <Annotation Term="Common.Text" Path="name">
+                    <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
+                </Annotation>
+                <Annotation Term="Common.Label" String="Status"/>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.VisitStatusCodes">
+                <Annotation Term="UI.Identification">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="name"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.VisitStatusCodes/name">
+                <Annotation Term="Common.Label" String="Name"/>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.VisitStatusCodes/descr">
+                <Annotation Term="Common.Label" String="Description"/>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.VisitStatusCodes/code">
+                <Annotation Term="Common.Text" Path="name">
+                    <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
+                </Annotation>
+                <Annotation Term="Common.Label" String="Status"/>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.Currencies_texts/locale">
+                <Annotation Term="Common.Label" String="Language Code"/>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.Currencies_texts/name">
+                <Annotation Term="Common.Label" String="Name"/>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.Currencies_texts/descr">
+                <Annotation Term="Common.Label" String="Description"/>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.Currencies_texts/code">
+                <Annotation Term="Common.Text" Path="name"/>
+                <Annotation Term="Common.Label" String="Currency Code"/>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.PoetrySlamStatusCodes_texts/locale">
+                <Annotation Term="Common.Label" String="Language Code"/>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.PoetrySlamStatusCodes_texts/name">
+                <Annotation Term="Common.Label" String="Name"/>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.PoetrySlamStatusCodes_texts/descr">
+                <Annotation Term="Common.Label" String="Description"/>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.PoetrySlamStatusCodes_texts/code">
+                <Annotation Term="Common.Text" Path="name">
+                    <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
+                </Annotation>
+                <Annotation Term="Common.Label" String="Status"/>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.VisitStatusCodes_texts/locale">
+                <Annotation Term="Common.Label" String="Language Code"/>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.VisitStatusCodes_texts/name">
+                <Annotation Term="Common.Label" String="Name"/>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.VisitStatusCodes_texts/descr">
+                <Annotation Term="Common.Label" String="Description"/>
+            </Annotations>
+            <Annotations Target="PoetrySlamManagerAPIService.VisitStatusCodes_texts/code">
+                <Annotation Term="Common.Text" Path="name">
+                    <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
+                </Annotation>
+                <Annotation Term="Common.Label" String="Status"/>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
