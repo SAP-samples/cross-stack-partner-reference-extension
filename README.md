@@ -1,7 +1,8 @@
 # Cross-Stack Partner Reference Extension  *Poetry Slam Event Commerce*
-## Description
 
 [![REUSE status](https://api.reuse.software/badge/github.com/SAP-samples/cross-stack-partner-reference-extension)](https://api.reuse.software/info/github.com/SAP-samples/cross-stack-partner-reference-extension)
+
+## Description
 
 This showcases a cross-stack extension by demonstrating how an on-stack extension(PRA) on SAP S/4HANA Cloud Public Edition can seamlessly integrate with a side-by-side SAP BTP-based CAP multi-tenant application: **Poetry Slam Manager** (PRA).
 
