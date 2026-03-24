@@ -62,6 +62,42 @@ To create the necessary communication systems, follow these steps:
 
 9. Under **Technical Data > General**, provide the host name:
 
-    - **Host Name**: This is the subscription application URL. You can find it in the subscribed application in the subscribed subaccount. Remove `https://` from the host name and the API endpoints after `.com`.
+    - **Host Name**: This host name is used to navigate to the Poetry Slam Manager application from SAP S/4HANA Cloud Public Edition. The value varies based on the subscription method of the Poetry Slam Manager application.
 
-1ß. Choose **Save**.
+      **Option A: Direct Subscription (Application accessed directly from the subaccount)**
+      
+      1. Open the subscribed **Poetry Slam Manager** application from the SAP BTP Cockpit.
+      2. Copy the complete URL from the browser's address bar.
+      3. Remove the `https://` prefix from the beginning.
+      
+      **Example:**
+      
+      If the URL is:
+      
+      _https://**&lt;subscriber-subdomain&gt;.&lt;provider-subdomain&gt;-&lt;cf-space&gt;-poetry-slams.cfapps.eu12.hana.ondemand.com/poetryslams/index.html#**_
+      
+      The host name is:
+      
+      _&lt;subscriber-subdomain&gt;.&lt;provider-subdomain&gt;-&lt;cf-space&gt;-poetry-slams.cfapps.eu12.hana.ondemand.com/poetryslams/index.html#_
+      
+
+      ---
+
+      **Option B: SAP Work Zone Subscription (Application accessed via SAP Work Zone)**
+      
+      1. Open the **Poetry Slam Events** application from your SAP Work Zone site.
+      2. Copy the complete URL from the browser's address bar.
+      3. Remove the `https://` prefix from the beginning.
+      4. Remove the query parameter `/?sap-iapp-state=<random-id>` from the end of the URL.
+      
+      **Example:**
+      
+      If the URL is:
+      
+      _https://**&lt;subscriber-subdomain&gt;.launchpad.cfapps.eu12.hana.ondemand.com/site/&lt;site-alias&gt;#poetryslams-display?sap-ui-app-id-hint=pra_poetryslams&**/?sap-iapp-state=&lt;random-id&gt;_
+      
+      The host name is:
+
+      _&lt;subscriber-subdomain&gt;.launchpad.cfapps.eu12.hana.ondemand.com/site/&lt;site-alias&gt;#poetryslams-display?sap-ui-app-id-hint=pra_poetryslams&_
+
+10. Choose **Save**.

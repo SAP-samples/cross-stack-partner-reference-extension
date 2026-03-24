@@ -76,6 +76,9 @@ This repository provides a comprehensive guide for partners to implement a cross
 2. [**On-Stack Extension Development**](./README.md#develop-the-extension-using-abap-development-tools-adt-in-the-development-system): Building an on-stack extension within **SAP S/4HANA Cloud Public Edition** using the ABAP RESTful Application Programming Model (RAP).
 3. [**Secure Integration**](./README.md#secure-integration): Ensuring **secure integration** between the SAP S/4HANA Cloud Public Edition system and the SAP BTP application using outbound services, communication arrangements, and destinations.
 4. **Enhanced User Experience**: Enabling **seamless navigation** and data exchange between the on-stack and side-by-side components, which enhances the overall user experience.
+5. [**S/4HANA Launchpad Integration**](./README.md#s4hana-launchpad-integration): Partners can integrate their side-by-side applications directly into the **S/4HANA Launchpad**, so customers get:
+   - **A single, unified entry point**: Access new features and services faster, improving overall satisfaction.
+   - **Seamless user experience**: Consistent look and feel across SAP and Partner solutions.
 
 If you prefer a quick start with a deployment of the Cross-Stack Partner Reference Extension—including all features and without further explanation—follow the below Quick Start Guide: 
 
@@ -155,6 +158,10 @@ To deploy the side-by-side application in the Provider sub-account, follow the s
 To enable secure integration between **SAP S/4HANA Cloud Public Edition** and the **Poetry Slam Manager** application on **SAP BTP**, you must configure destinations on BTP and set up communication artifacts in the S/4HANA system.
 
 Follow the detailed instructions in the [Integration Setup Guide](./Tutorials/16-Integration.md).
+
+#### S/4HANA Launchpad Integration
+
+To configure navigation from the SAP S/4HANA Launchpad to the side-by-side partner application, follow the steps in the [Launchpad Integration tutorial](./Tutorials/31-LCH-LaunchpadIntegration.md).
 
 #### Review End-to-End Solution in SAP S/4HANA Cloud Public Edition Development System
 

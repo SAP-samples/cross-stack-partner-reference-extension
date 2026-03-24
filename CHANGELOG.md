@@ -1,5 +1,13 @@
 # Changes
 
+## Current Version - March 2026
+
+The tutorials and sample cross-stack partner reference application code are available in the main branch.
+
+The current version includes:
+
+- [S/4HANA Launchpad Integration](./Tutorials/31-LCH-LaunchpadIntegration.md): Configuration guidelines have been added to enable navigation from the SAP S/4HANA Launchpad to the side-by-side SAP BTP-based CAP multi-tenant application, Poetry Slam Manager (PRA).
+- [Communication System Configuration](./Tutorials/19-Communication%20System.md): Communication System Configuration has been enhanced. In Section 9, a new Option B has been introduced to support the SAP Work Zone subscription. This option includes detailed instructions on how to obtain the host name when accessing the Poetry Slam Manager application via SAP Work Zone.
 ## December 2025 (Initial Version)
 
 The tutorials and sample cross-stack partner reference application code are available in the main branch.
