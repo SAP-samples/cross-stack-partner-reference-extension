@@ -157,7 +157,8 @@ CLASS lhc_salesorder IMPLEMENTATION.
           io_api_dest       = lo_api_dest ).
 
         CONCATENATE 'https://' lv_hostname INTO lv_hostname.
-        DATA(lv_path)    = |/poetryslams/index.html#/PoetrySlams('{ ls_poetry_slam-number }')|.
+*        DATA(lv_path)    = |/poetryslams/index.html#/PoetrySlams('{ ls_poetry_slam-number }')|.
+        DATA(lv_path)    = |/PoetrySlams('{ ls_poetry_slam-number }')|.
         CONCATENATE lv_hostname lv_path INTO DATA(lv_full_url).
 
         MODIFY ENTITIES OF i_salesordertp IN LOCAL MODE
